@@ -1,31 +1,40 @@
 package com.example.spotifyalarmclock.service.model;
 
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.spotifyalarmclock.service.room.AlarmDayConverter;
+import com.example.spotifyalarmclock.service.room.AlarmTypeConvertor;
 
 import java.util.Map;
 
 @Entity(tableName = "alarm_table")
 public class Alarm {
 
-
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private int alarm_hour;
     private int alarm_min;
+    @TypeConverters(AlarmTypeConvertor.class)
     private AlarmType alarmType;
     private String spotifyPlaylistName;
     private boolean isShuffle;
     private boolean isRepeat;
     private boolean isAlarmSet;
     private String alarmRingtone;
+
+    @TypeConverters(AlarmDayConverter.class)
     private Map<Integer, Boolean> daysAlarmIsSet;
 
-
-    public Map<Integer, Boolean> getDaysAlarmIsSet() {
-        return daysAlarmIsSet;
+    public int getId() {
+        return id;
     }
 
-    public void setDaysAlarmIsSet(Map<Integer, Boolean> daysAlarmIsSet) {
-        this.daysAlarmIsSet = daysAlarmIsSet;
+    public void setId(int id) {
+        this.id = id;
     }
+
 
     public int getAlarm_hour() {
         return alarm_hour;
@@ -91,6 +100,14 @@ public class Alarm {
         this.alarmRingtone = alarmRingtone;
     }
 
+    public Map<Integer, Boolean> getDaysAlarmIsSet() {
+        return daysAlarmIsSet;
+    }
+
+    public void setDaysAlarmIsSet(Map<Integer, Boolean> daysAlarmIsSet) {
+        this.daysAlarmIsSet = daysAlarmIsSet;
+    }
+
 
     public Alarm(int alarm_hour, int alarm_min, AlarmType alarmType, String spotifyPlaylistName, boolean isShuffle, boolean isRepeat, boolean isAlarmSet, String alarmRingtone, Map<Integer, Boolean> daysAlarmIsSet) {
         this.alarm_hour = alarm_hour;
@@ -103,7 +120,6 @@ public class Alarm {
         this.alarmRingtone = alarmRingtone;
         this.daysAlarmIsSet = daysAlarmIsSet;
     }
-
 
 
 }

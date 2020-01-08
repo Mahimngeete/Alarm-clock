@@ -18,11 +18,11 @@ public class AlarmViewModel extends AndroidViewModel {
 
     public AlarmViewModel(@NonNull Application application) {
         super(application);
-        alarmRepository = new AlarmRepository(application);
-        allAlarms = alarmRepository.getAllAlarms();
     }
 
     public LiveData<List<Alarm>> getAllAlarms(){
+        alarmRepository = new AlarmRepository(getApplication());
+        allAlarms = alarmRepository.getAllAlarms();
         return allAlarms;
     }
 
@@ -37,5 +37,5 @@ public class AlarmViewModel extends AndroidViewModel {
     public void updateAlarm(Alarm alarm){
         alarmRepository.updateAlarm(alarm);
     }
-    
+
 }
